@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.lucene:lucene-misc:7.0.1">
+    <CLASSES>
+      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/org/apache/lucene/lucene-misc/7.0.1/lucene-misc-7.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/org/apache/lucene/lucene-misc/7.0.1/lucene-misc-7.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/org/apache/lucene/lucene-misc/7.0.1/lucene-misc-7.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

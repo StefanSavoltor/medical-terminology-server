@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
 
         return new ApiInfoBuilder()
                 .title("医学术语接口文档")
-                .description("医学术语标准接口文档描述")
+                .description("omaha医学术语标准接口文档描述")
                 .termsOfServiceUrl("http://localhost:8080/")
                 .contact(contact)
                 .version("1.0")
