@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.validation.constraints.NotNull;
 
-@Document(indexName = "relationship")
+@Document(indexName = "relationship",type = "relationship")
 @JsonPropertyOrder({"relationshipId",  "status", "releaseDate", "conceptId1", "conceptId2", "relationshipType", "relationshipGroup"})
 public class Relationship extends TerminologyComponent{
     public interface Fields extends TerminologyComponent.Fields {

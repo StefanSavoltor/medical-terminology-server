@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.xmlunit:xmlunit-core:2.6.3">
     <CLASSES>
-      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/org/xmlunit/xmlunit-core/2.6.3/xmlunit-core-2.6.3.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.0/repo/org/xmlunit/xmlunit-core/2.6.3/xmlunit-core-2.6.3.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/org/xmlunit/xmlunit-core/2.6.3/xmlunit-core-2.6.3-javadoc.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.0/repo/org/xmlunit/xmlunit-core/2.6.3/xmlunit-core-2.6.3-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/org/xmlunit/xmlunit-core/2.6.3/xmlunit-core-2.6.3-sources.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.0/repo/org/xmlunit/xmlunit-core/2.6.3/xmlunit-core-2.6.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

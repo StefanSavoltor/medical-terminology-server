@@ -9,8 +9,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "Person")
-public class Person {
+@Document(indexName = "person")
+public class Person  extends TerminologyComponent{
     @JsonView(View.SimpleView.class)
     @ApiModelProperty(value = "personId")
     @Field(type = FieldType.Keyword)

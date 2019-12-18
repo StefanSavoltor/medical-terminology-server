@@ -40,7 +40,7 @@ import java.net.InetAddress;
 @EnableAsync
 public class Config {
     private static final String CLUSTER_NODES_SPLIT_SYMBOL = ",";
-    private static final String HOST_PORT_SPLIT_SYMBOL = "-";
+    private static final String HOST_PORT_SPLIT_SYMBOL = ":";
 
     @Value("${elasticsearch.cluster-name}")
     private String elasticsearchClusterName;
@@ -82,13 +82,13 @@ public class Config {
                     .put("client.transport.sniff", false).build();
             TransportClient transportClient = new PreBuiltTransportClient(settings);
             String[] clusterNodeArray = clusterNodes.trim().split(CLUSTER_NODES_SPLIT_SYMBOL);
-            for (String clusterNode : clusterNodeArray) {
+            for (String clusterNode : clusterNodeArray) {logger.info("elasticsearch init success.");
                 String[] clusterNodeInfoArray = clusterNode.trim().split(HOST_PORT_SPLIT_SYMBOL);
                 TransportAddress transportAddress = new TransportAddress(InetAddress.getByName(clusterNodeInfoArray[0]),
                         Integer.parseInt(clusterNodeInfoArray[1]));
                 transportClient.addTransportAddress(transportAddress);
             }
-            logger.info("elasticsearch init success.");
+
             return transportClient;
         } catch (Exception e) {
             throw new RuntimeException("elasticsearch init fail.");

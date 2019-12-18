@@ -46,25 +46,7 @@ public class ImportController {
     @JsonView(View.SimpleView.class)
     public Map<String,String> importTerminologyFromFile(@RequestParam("tag") String tag, @RequestParam("file") MultipartFile file) throws IOException {
         Map<String,String> map = new HashMap<>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
-        String line="";
-        String[] arrs=null;
-        List<Person> personList = new ArrayList<>();
-        try {
-            while ((line = br.readLine()) != null) {
-                arrs = line.split("\t");
-                if (arrs.length == 3) {
-                    Person p = new Person(Long.valueOf(arrs[0]), arrs[1], Integer.valueOf(arrs[2]));
-                    personList.add(p);
-                    importService.savePerson(p);
-                }
-
-                System.out.println(arrs[0] + " : " + arrs[1] + " : " + arrs[2]);
-            }
-            br.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        importService.importTerminologyFromFile(tag,file);
         return map;
     }
 }

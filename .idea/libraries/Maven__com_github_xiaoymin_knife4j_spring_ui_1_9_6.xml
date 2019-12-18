@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: com.github.xiaoymin:knife4j-spring-ui:1.9.6">
     <CLASSES>
-      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/com/github/xiaoymin/knife4j-spring-ui/1.9.6/knife4j-spring-ui-1.9.6.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.0/repo/com/github/xiaoymin/knife4j-spring-ui/1.9.6/knife4j-spring-ui-1.9.6.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/com/github/xiaoymin/knife4j-spring-ui/1.9.6/knife4j-spring-ui-1.9.6-javadoc.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.0/repo/com/github/xiaoymin/knife4j-spring-ui/1.9.6/knife4j-spring-ui-1.9.6-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/common_program/apache-maven-3.2.5-bin/apache-maven-3.2.5/repo/com/github/xiaoymin/knife4j-spring-ui/1.9.6/knife4j-spring-ui-1.9.6-sources.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.0/repo/com/github/xiaoymin/knife4j-spring-ui/1.9.6/knife4j-spring-ui-1.9.6-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

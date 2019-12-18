@@ -14,9 +14,10 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Set;
 
-@Document(indexName = "concept")
+@Document(indexName = "concept",type = "concept")
 @JsonPropertyOrder({"conceptId",  "status", "releaseDate","semanticTag", "descriptions", "relationships"})
 public class Concept extends TerminologyComponent implements ConceptView{
 
@@ -136,6 +137,12 @@ public class Concept extends TerminologyComponent implements ConceptView{
     public Concept(Long conceptId) {
         this();
         this.conceptId = conceptId;
+    }
+
+    public Concept(Long conceptId, Date releaseDate, Boolean status, @NotNull String semanticTag) {
+        super(releaseDate,status);
+        this.conceptId = conceptId;
+        this.semanticTag = semanticTag;
     }
 
     public Concept(Long conceptId, @NotNull String semanticTag, @Valid Set<Description> descriptions, @Valid Set<Relationship> relationships) {

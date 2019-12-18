@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.validation.constraints.NotNull;
 
-@Document(indexName = "mapping")
+@Document(indexName = "mapping",type = "mapping")
 @JsonPropertyOrder({"mappingId",  "status", "releaseDate", "omahaId", "targetId", "mapPriority", "mapVocabulary"})
 public class Mapping extends TerminologyComponent{
     public interface Fields extends TerminologyComponent.Fields {

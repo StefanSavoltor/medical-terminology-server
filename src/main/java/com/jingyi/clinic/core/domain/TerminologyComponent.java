@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.jingyi.clinic.core.view.View;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +21,7 @@ public abstract class TerminologyComponent implements Serializable {
     public enum SearchMode {
         STANDARD, REGEX
     }
+
     @JsonView(View.SimpleView.class)
     @JsonFormat(pattern="yyyyMMdd",timezone = "GMT+8")
     @ApiModelProperty(value = "发布时间")
@@ -43,5 +45,13 @@ public abstract class TerminologyComponent implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public TerminologyComponent(Date releaseDate, Boolean status) {
+        this.releaseDate = releaseDate;
+        this.status = status;
+    }
+
+    public TerminologyComponent() {
     }
 }

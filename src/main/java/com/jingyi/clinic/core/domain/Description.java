@@ -10,7 +10,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "description")
+@Document(indexName = "description",type = "description")
 @JsonPropertyOrder({"descriptionId",  "status", "releaseDate", "conceptId", "term", "termType"})
 public class Description extends TerminologyComponent{
     public interface Fields extends TerminologyComponent.Fields {
