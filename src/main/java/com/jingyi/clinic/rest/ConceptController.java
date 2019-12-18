@@ -1,11 +1,9 @@
 package com.jingyi.clinic.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.jingyi.clinic.core.domain.Concept;
-import com.jingyi.clinic.core.domain.ConceptMini;
-import com.jingyi.clinic.core.domain.Description;
+import com.jingyi.clinic.core.domain.*;
 import com.jingyi.clinic.core.domain.Mapping;
-import com.jingyi.clinic.core.domain.Relationship;
+import com.jingyi.clinic.core.exception.ServiceException;
 import com.jingyi.clinic.core.util.ControllerHelper;
 import com.jingyi.clinic.core.view.View;
 import com.jingyi.clinic.core.pojo.ItemsPage;
@@ -16,8 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import org.elasticsearch.common.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -30,7 +30,7 @@ public class ConceptController {
             @ApiImplicitParam(name = "status", value = "状态", required = false, paramType = "query", dataType = "boolean"),
             @ApiImplicitParam(name = "term", value = "术语", required = false, paramType = "query", dataType = "string"),
             @ApiImplicitParam(name = "termStatus", value = "术语状态", required = false, paramType = "query", dataType = "boolean"),
-            @ApiImplicitParam(name = "conceptIds", value = "概念标识符集", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "conceptIds", value = "概念标识符集", required = false, paramType = "query", dataType = "long"),
             @ApiImplicitParam(name = "offset", value = "位偏移", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "limit", value = "条目数量限制", required = false, paramType = "query", dataType = "int"),
     })
@@ -40,10 +40,9 @@ public class ConceptController {
         @RequestParam(required = false) Boolean status,
         @RequestParam(required = false) String term,
         @RequestParam(required = false) Boolean termStatus,
-        @RequestParam(required = false) Set<String> conceptIds,
+        @RequestParam(required = false) Set<Long> conceptIds,
         @RequestParam(required = false, defaultValue = "0") long offset,
-        @RequestParam(required = false, defaultValue = "50") int limit,
-        @RequestParam(required = false) String searchAfter) {
+        @RequestParam(required = false, defaultValue = "50") int limit) {
         ControllerHelper.validatePageSize(offset, limit);
         Set<ConceptMini> conceptMinis = new HashSet<>();
         ItemsPage<ConceptMini> conceptMiniItemsPage = new ItemsPage<>(conceptMinis);
@@ -63,7 +62,7 @@ public class ConceptController {
 
     @ApiOperation(value = "查询概念集", notes = "多条件查询概念集", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "conceptIds", value = "概念标识符", required = true, paramType = "path", dataType = "long"),
+            @ApiImplicitParam(name = "conceptIds", value = "概念标识符", required = true, paramType = "path", dataType = "list"),
             @ApiImplicitParam(name = "offset", value = "位偏移", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "limit", value = "条目数量限制", required = false, paramType = "query", dataType = "int"),
     })
@@ -71,8 +70,7 @@ public class ConceptController {
     @JsonView(value = View.SimpleView.class)
     public ItemsPage<Concept> getDetailedConcepts(@RequestParam(required = false) List<Long> conceptIds,
             @RequestParam(defaultValue = "0") int offset,
-            @RequestParam(defaultValue = "50") int limit,
-            @RequestParam(required = false) String searchAfter) {
+            @RequestParam(defaultValue = "50") int limit) {
         ControllerHelper.validatePageSize(offset, limit);
         Set<Concept> concepts = new HashSet<>();
         return new ItemsPage<>(concepts);
@@ -84,7 +82,7 @@ public class ConceptController {
     })
     @GetMapping("/{conceptId}")
     @JsonView(View.SimpleView.class)
-    public Concept findDetailedConcept(@PathVariable("conceptId") Long conceptId){
+    public ConceptView findDetailedConcept(@PathVariable("conceptId") Long conceptId){
         Concept concept = new Concept();
         return concept;
     }
@@ -103,9 +101,11 @@ public class ConceptController {
     @ApiOperation(value = "删除概念", notes = "删除概念数据", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "conceptId", value = "概念标识符", required = true, paramType = "path", dataType = "long"),
+            @ApiImplicitParam(name = "force", value = "是否强制删除", required = true, paramType = "query", dataType = "boolean"),
     })
     @RequestMapping(value = "/{conceptId}", method = RequestMethod.DELETE)
-    public void deleteConcept(@PathVariable String conceptId) {
+    @JsonView(View.SimpleView.class)
+    public void deleteConcept(@PathVariable String conceptId, @RequestParam(defaultValue = "false") boolean force) {
 
     }
 
@@ -161,5 +161,34 @@ public class ConceptController {
     public Map<String, Long> countSemanticTags() {
         Map<String, Long> map = new HashMap<>();
         return map;
+    }
+
+    @ApiOperation(value = "创建概念", notes = "新建概念", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "concept", value = "概念视图数据", required = true, paramType = "body", dataType = "ConceptView"),
+
+    })
+    @RequestMapping(value = "/concepts", method = RequestMethod.POST)
+    @JsonView(value = View.SimpleView.class)
+    public ConceptView createConcept(@RequestBody @Valid ConceptView concept) throws ServiceException {
+
+        Concept rtConcept = new Concept();
+        return rtConcept;
+    }
+
+    @ApiOperation(value = "更新概念", notes = "更新概念", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "conceptId", value = "概念标识符", required = true, paramType = "path", dataType = "Long"),
+            @ApiImplicitParam(name = "concept", value = "概念视图数据", required = true, paramType = "body", dataType = "ConceptView"),
+
+    })
+    @RequestMapping(value = "/{conceptId}", method = RequestMethod.PUT)
+    @JsonView(value = View.SimpleView.class)
+    public ConceptView updateConcept(
+            @PathVariable Long conceptId,
+            @RequestBody @Valid ConceptView concept) throws ServiceException {
+
+        Concept rtConcept = new Concept();
+        return rtConcept;
     }
 }

@@ -7,6 +7,7 @@ import com.jingyi.clinic.common.constant.TerminologyComponentMap;
 import com.jingyi.clinic.core.util.DescriptionHelper;
 import com.jingyi.clinic.core.view.View;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -17,7 +18,7 @@ import java.util.Set;
 
 @Document(indexName = "concept")
 @JsonPropertyOrder({"conceptId",  "status", "releaseDate","semanticTag", "descriptions", "relationships"})
-public class Concept extends TerminologyComponent{
+public class Concept extends TerminologyComponent implements ConceptView{
 
     public interface Fields extends TerminologyComponent.Fields {
         String CONCEPT_ID = "conceptId";
@@ -26,6 +27,7 @@ public class Concept extends TerminologyComponent{
     @JsonView(View.SimpleView.class)
     @ApiModelProperty(value = "概念标识符")
     @Field(type = FieldType.Keyword)
+    @Id
     private Long conceptId;
 
     /**
@@ -61,6 +63,16 @@ public class Concept extends TerminologyComponent{
 
     public String getSemanticTag() {
         return semanticTag;
+    }
+
+    @Override
+    public Description getDescription(String descriptionId) {
+        for (Description description : descriptions) {
+            if (descriptionId.equals(description.getDescriptionId())) {
+                return description;
+            }
+        }
+        return null;
     }
 
     public void setSemanticTag(String semanticTag) {
@@ -119,6 +131,11 @@ public class Concept extends TerminologyComponent{
     }
 
     public Concept() {
+    }
+
+    public Concept(Long conceptId) {
+        this();
+        this.conceptId = conceptId;
     }
 
     public Concept(Long conceptId, @NotNull String semanticTag, @Valid Set<Description> descriptions, @Valid Set<Relationship> relationships) {

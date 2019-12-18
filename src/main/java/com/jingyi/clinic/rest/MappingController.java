@@ -27,6 +27,7 @@ public class MappingController {
             @ApiImplicitParam(name = "mappingId", value = "映射标识符", required = true, paramType = "path", dataType = "string"),
     })
     @GetMapping("/{mappingId}")
+    @JsonView(View.SimpleView.class)
     public Mapping findConcept(@PathVariable("mappingId") String mappingId){
         Mapping mapping = new Mapping();
         return mapping;
@@ -38,6 +39,7 @@ public class MappingController {
             @ApiImplicitParam(name = "force", value = "是否强制删除", required = true, paramType = "query", dataType = "boolean"),
     })
     @RequestMapping(value = "/{mappingId}",method = RequestMethod.DELETE)
+    @JsonView(View.SimpleView.class)
     public void deleteMapping(@PathVariable("mappingId") String mappingId,@RequestParam(defaultValue = "false") boolean force){
 
     }

@@ -44,7 +44,7 @@ public class Relationship extends TerminologyComponent{
     private String relationshipType;
 
     @JsonView(View.SimpleView.class)
-    @ApiModelProperty(value = "关系组")
+    @ApiModelProperty(value = "关系组",example = "1")
     @Field(type = FieldType.Keyword)
     private Number relationshipGroup;
 

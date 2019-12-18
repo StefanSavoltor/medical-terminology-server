@@ -36,7 +36,7 @@ public class Description extends TerminologyComponent{
     private String term;
 
     @JsonView(View.DetailView.class)
-    @ApiModelProperty(value = "术语类型")
+    @ApiModelProperty(value = "术语类型",example = "1")
     @Field(type=FieldType.Keyword)
     private Number termType;
 

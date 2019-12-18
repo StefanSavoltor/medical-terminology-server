@@ -28,6 +28,7 @@ public class RelationshipController {
             @ApiImplicitParam(name = "relationshipId", value = "关系标识符", required = true, paramType = "path", dataType = "string"),
     })
     @GetMapping("/{relationshipId}")
+    @JsonView(View.SimpleView.class)
     public Relationship fetchDescription(@PathVariable("relationshipId") String relationshipId){
         Relationship relationship = new Relationship();
         return relationship;
@@ -39,6 +40,7 @@ public class RelationshipController {
             @ApiImplicitParam(name = "force", value = "是否强制删除", required = true, paramType = "query", dataType = "boolean"),
     })
     @RequestMapping(value = "/{relationshipId}",method = RequestMethod.DELETE)
+    @JsonView(View.SimpleView.class)
     public void deleteDescription(@PathVariable("relationshipId") String relationshipId,@RequestParam(defaultValue = "false") boolean force){
 
     }
